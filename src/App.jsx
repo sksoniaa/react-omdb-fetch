@@ -10,10 +10,11 @@ function App() {
   // State - type of hook
 
   const [movieData, setMovieData] = useState({})
+  const [movieTitle, setMovieTitle] = useState('Star Wars')
 
   useEffect(() => {
 
-    const apiEndPoint = `http://www.omdbapi.com/?apikey=bfc329ed&t=Eraserhead`
+    const apiEndPoint = `http://www.omdbapi.com/?apikey=bfc329ed&t=${movieTitle}`
 
 
   
@@ -36,7 +37,8 @@ function App() {
     getMovie()
 
     console.log('useEffect is running');
-  }, []) // empty dependency array means call the effect once when the components loads onto dom!
+  }, [movieTitle]) // the name of my state variable
+  // empty dependency array means call the effect once when the components loads onto dom!
 
 // we define the key "movie" here and we destructure it in MovieInfo
   return (

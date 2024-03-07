@@ -12,6 +12,12 @@ function App() {
   const [movieData, setMovieData] = useState({})
   const [movieTitle, setMovieTitle] = useState('Star Wars')
 
+  function getSearchTerm(searchTitle){
+    console.log(searchTitle, ' <--- app.js searchTitle');
+    setMovieTitle(searchTitle)
+  }
+
+
   useEffect(() => {
 
     const apiEndPoint = `http://www.omdbapi.com/?apikey=bfc329ed&t=${movieTitle}`
@@ -20,9 +26,10 @@ function App() {
   
     async function getMovie() {
       try{
+        // makes http request
         const response = await fetch(apiEndPoint)
 
-        const data = await response.json() // parse into a regulat js object
+        const data = await response.json() // parse json into a regulat js object
 
         console.log(data, "from omdb");
 
@@ -41,9 +48,12 @@ function App() {
   // empty dependency array means call the effect once when the components loads onto dom!
 
 // we define the key "movie" here and we destructure it in MovieInfo
+
+// left hand side - we take from our props
+// right hand side - the name of our function
   return (
     <>
-    <MovieSearch />
+    <MovieSearch getSearchTerm={getSearchTerm}/>
     <MovieInfo movie={movieData}/>
     </>
   )
